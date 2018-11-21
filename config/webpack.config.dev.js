@@ -49,11 +49,11 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // common function to get style loaders
-const getStyleLoaders = (cssOptions, preProcessor) => {
+const getStyleLoaders = (cssOptions, preProcessor, defaultCssloader='css-loader') => {
   const loaders = [
     require.resolve('style-loader'),
     {
-      loader: require.resolve('css-loader'),
+      loader: require.resolve(defaultCssloader),
       options: cssOptions,
     },
     {
@@ -159,7 +159,7 @@ module.exports = {
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web',
+      'react-native': 'react-native-web'
     },
     plugins: [
       // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -327,7 +327,7 @@ module.exports = {
             use: getStyleLoaders({
               importLoaders: 1,
               modules: true,
-              getLocalIdent: getCSSModuleLocalIdent,
+              getLocalIdent: getCSSModuleLocalIdent
             }),
           },
           // Opt-in support for SASS (using .scss or .sass extensions).
@@ -349,8 +349,10 @@ module.exports = {
                 importLoaders: 2,
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
+                namedExport: true
               },
-              'sass-loader'
+              'sass-loader',
+              'typings-for-css-modules-loader'
             ),
           },
           // "file" loader makes sure those assets get served by WebpackDevServer.
@@ -408,7 +410,7 @@ module.exports = {
     // solution that requires the user to opt into importing specific locales.
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/, /css\.d\.ts$/),
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
     // having to parse `index.html`.
