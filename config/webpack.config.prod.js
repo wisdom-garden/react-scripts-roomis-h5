@@ -441,6 +441,7 @@ module.exports = {
                 sourceMap: shouldUseSourceMap,
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
+                namedExport: true
               },
               'sass-loader',
               'typings-for-css-modules-loader'
