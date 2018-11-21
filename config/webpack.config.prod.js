@@ -423,8 +423,7 @@ module.exports = {
                 importLoaders: 2,
                 sourceMap: shouldUseSourceMap,
               },
-              'sass-loader',
-              'typings-for-css-modules-loader'
+              'sass-loader'
             ),
             // Don't consider CSS imports dead code even if the
             // containing package claims to have no side effects.
@@ -443,7 +442,8 @@ module.exports = {
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
               },
-              'sass-loader'
+              'sass-loader',
+              'typings-for-css-modules-loader'
             ),
           },
           // "file" loader makes sure assets end up in the `build` folder.
