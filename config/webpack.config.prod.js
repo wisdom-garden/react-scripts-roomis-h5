@@ -67,7 +67,7 @@ const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
 
 // common function to get style loaders
-const getStyleLoaders = (cssOptions, preProcessor, defaultCssloader='css-loader') => {
+const getStyleLoaders = (cssOptions, preProcessor) => {
   const loaders = [
     {
       loader: MiniCssExtractPlugin.loader,
@@ -77,7 +77,7 @@ const getStyleLoaders = (cssOptions, preProcessor, defaultCssloader='css-loader'
       ),
     },
     {
-      loader: require.resolve(defaultCssloader),
+      loader: require.resolve('css-loader'),
       options: cssOptions,
     },
     {
@@ -441,10 +441,8 @@ module.exports = {
                 sourceMap: shouldUseSourceMap,
                 modules: true,
                 getLocalIdent: getCSSModuleLocalIdent,
-                namedExport: true
               },
               'sass-loader',
-              'typings-for-css-modules-loader'
             ),
           },
           // "file" loader makes sure assets end up in the `build` folder.
@@ -522,7 +520,7 @@ module.exports = {
     // solution that requires the user to opt into importing specific locales.
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/, /css\.d\.ts$/),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
     new WorkboxWebpackPlugin.GenerateSW({
